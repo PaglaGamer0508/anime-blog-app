@@ -1,0 +1,18 @@
+/* DropDownMenuGenres.css */
+.custom_scrollbar {
+  scrollbar-width: thin; /* Slimmer scrollbar */
+  scrollbar-color: rgba(255, 255, 255, 0.4) transparent; /* Scrollbar color */
+
+  &::-webkit-scrollbar {
+    width: 6px; /* Adjust to your preference */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4); /* Scrollbar thumb color */
+    border-radius: 6px; /* Rounded corners for the thumb */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent; /* Scrollbar track color */
+  }
+}

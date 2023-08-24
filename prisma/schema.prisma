@@ -40,8 +40,10 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  username      String?   @unique
   email         String?   @unique
   emailVerified DateTime?
+  image         String?
 
   posts Post[]
 
@@ -49,19 +51,38 @@ model User {
   session Session[]
 
   Likes Like[]
+
+  following Follow[] @relation("FollowedUser")
+  followers Follow[] @relation("Follower")
+}
+
+model Follow {
+  id String @id @default(cuid())
+
+  follower   User   @relation("Follower", fields: [followerId], references: [id])
+  followerId String
+
+  followedUser   User   @relation("FollowedUser", fields: [followedUserId], references: [id])
+  followedUserId String
 }
 
 model Post {
-  id      String @id @default(cuid())
+  id      String  @id @default(cuid())
+  image   String?
   title   String
   content Json?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Author    User?    @relation(fields: [AuthorId], references: [id])
-  AuthorId  String?
+
+  Author   User?   @relation(fields: [AuthorId], references: [id])
+  AuthorId String?
 
   Likes Like[]
+
+  genres Genres[]
+
+  type Type @default(GENERAL)
 }
 
 model Like {
@@ -72,4 +93,43 @@ model Like {
 
   post   Post   @relation(fields: [postId], references: [id])
   postId String
+}
+
+enum Type {
+  GENERAL
+  REVIEW
+  CHARACTER
+}
+
+enum Genres {
+  ACTION
+  ADVENTURE
+  ROMANCE
+  SHOUJO
+  COMEDY
+  DRAMA
+  FANTASY
+  HORROR
+  MAGIC
+  MECHA
+  MYSTERY
+  SCI_FI
+  SUPERNATURAL
+  THRILLER
+  SPORTS
+  PSYCHOLOGICAL
+  HISTORICAL
+  MILITARY
+  MUSIC
+  SLICE_OF_LIFE
+  HAREM
+  ISEKAI
+  SEINEN
+  SHOUNEN
+  JOSEI
+  ECCHI
+  HENTAI
+  MAGICAL_GIRL
+  VAMPIRE
+  ZOMBIE
 }
