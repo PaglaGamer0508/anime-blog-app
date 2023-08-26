@@ -20,10 +20,10 @@ interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
 export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="outline-none">
         <UserAvatar
           user={{ name: user.name || null, image: user.image || null }}
-          className="h-8 w-8"
+          className="h-8 w-8 select-none"
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-slate-700 text-slate-200" align="end">
@@ -39,11 +39,11 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/">Feed</Link>
+          <Link href="/">Profile</Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <Link href="/r/create">Create Community</Link>
+          <Link href="/blog/create">Create Blog</Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>

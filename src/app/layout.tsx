@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/Toaster";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Anime Blogs",
@@ -19,12 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-slate-950 text-white">
-        <Navbar />
+        <Providers>
+          <Navbar />
 
-        <div>{children}</div>
-        {authModal}
+          <div>{children}</div>
+          {authModal}
 
-        <Toaster />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

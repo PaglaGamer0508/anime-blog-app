@@ -3,7 +3,6 @@ import Link from "next/link";
 import DropDownMenuGenres from "./DropDownMenuGenres";
 import SignInNavButton from "./SignInNavButton";
 import { UserAccountNav } from "./UserAccountNav";
-import { db } from "@/lib/db";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -19,13 +18,8 @@ const Navbar = async () => {
               AnimeBlogs
             </Link>
           </div>
-          <div className="hidden md:block">
+          <div className="md:block">
             <div className="ml-10 flex items-center space-x-4">
-              <Link
-                href="#"
-                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                Home
-              </Link>
               <DropDownMenuGenres />
               {session?.user ? (
                 <UserAccountNav user={session.user} />
