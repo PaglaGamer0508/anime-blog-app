@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useBlogTypeStore } from "@/state/blogTypeStore";
 import React from "react";
@@ -23,9 +23,9 @@ const SelectBlogType: React.FC = () => {
             <button
               className={`${
                 selectedOption === option
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-gray-800"
-              } py-2 px-4 rounded-md w-full font-semibold`}
+                  ? "bg-slate-900 text-white" // Dark theme selected state with slate-700 background
+                  : "bg-gray-800 text-gray-200" // Dark theme default state with gray-800 background
+              } py-2 px-4 rounded-md w-full font-semibold active:scale-95 transition-transform duration-75`}
               onClick={() => handleOptionClick(option)}>
               {option}
             </button>

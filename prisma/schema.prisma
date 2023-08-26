@@ -68,9 +68,9 @@ model Follow {
 
 model Post {
   id      String  @id @default(cuid())
-  image   String?
+  image   String
   title   String
-  content Json?
+  content String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -80,7 +80,7 @@ model Post {
 
   Likes Like[]
 
-  genres Genres[]
+  genres String[]
 
   type Type @default(GENERAL)
 }
@@ -99,37 +99,4 @@ enum Type {
   GENERAL
   REVIEW
   CHARACTER
-}
-
-enum Genres {
-  ACTION
-  ADVENTURE
-  ROMANCE
-  SHOUJO
-  COMEDY
-  DRAMA
-  FANTASY
-  HORROR
-  MAGIC
-  MECHA
-  MYSTERY
-  SCI_FI
-  SUPERNATURAL
-  THRILLER
-  SPORTS
-  PSYCHOLOGICAL
-  HISTORICAL
-  MILITARY
-  MUSIC
-  SLICE_OF_LIFE
-  HAREM
-  ISEKAI
-  SEINEN
-  SHOUNEN
-  JOSEI
-  ECCHI
-  HENTAI
-  MAGICAL_GIRL
-  VAMPIRE
-  ZOMBIE
 }

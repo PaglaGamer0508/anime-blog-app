@@ -1,18 +1,16 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { signIn } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import { FC } from "react";
 import { Button } from "@/components/ui/Button";
-import { useToast } from "@/hooks/use-toast";
-import { Icons } from "./Icons";
+import { toast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
+import React, { useState } from "react";
+import { Icons } from "./Icons";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
-  const { toast } = useToast();
+const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props }) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   // these state are for showing the loading spinner only on the buttom that the user clicked

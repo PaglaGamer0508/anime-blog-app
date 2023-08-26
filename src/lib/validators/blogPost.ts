@@ -1,39 +1,7 @@
 import { z } from "zod";
+import { Genre } from "@/state/blogGenreStore"; // Make sure to import the correct Genre enum
 
 const BlogType = ["GENERAL", "REVIEW", "CHARACTER"] as const;
-
-const BlogGenres = [
-  "ACTION",
-  "ADVENTURE",
-  "ROMANCE",
-  "SHOUJO",
-  "COMEDY",
-  "DRAMA",
-  "FANTASY",
-  "HORROR",
-  "MAGIC",
-  "MECHA",
-  "MYSTERY",
-  "SCI_FI",
-  "SUPERNATURAL",
-  "THRILLER",
-  "SPORTS",
-  "PSYCHOLOGICAL",
-  "HISTORICAL",
-  "MILITARY",
-  "MUSIC",
-  "SLICE_OF_LIFE",
-  "HAREM",
-  "ISEKAI",
-  "SEINEN",
-  "SHOUNEN",
-  "JOSEI",
-  "ECCHI",
-  "HENTAI",
-  "MAGICAL_GIRL",
-  "VAMPIRE",
-  "ZOMBIE",
-] as const;
 
 export const BlogPostValidator = z.object({
   image: z.string(),
@@ -41,9 +9,9 @@ export const BlogPostValidator = z.object({
     .string()
     .min(3, { message: "Title must be at least 3 characters" })
     .max(128, { message: "Title cannot be longer than 128 characters" }),
-  content: z.any(),
+  content: z.string(),
   authorId: z.string(),
-  genres: z.array(z.enum(BlogGenres)),
+  genres: z.array(z.nativeEnum(Genre)), // Use the nativeEnum method here
   type: z.enum(BlogType),
 });
 

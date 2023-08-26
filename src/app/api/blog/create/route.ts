@@ -14,12 +14,14 @@ export const POST = async (req: Request) => {
         id: authorId,
       },
     });
+    console.log(userExists);
+    console.log(body);
 
     if (!userExists) {
       return new NextResponse("Login to Post", { status: 400 });
     }
 
-    db.post.create({
+    await db.post.create({
       data: {
         AuthorId: authorId,
         title,
@@ -30,14 +32,17 @@ export const POST = async (req: Request) => {
       },
     });
 
-    return new Response("Posted Blog successfully");
+    return new Response("Posted Blog successfully", { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response("Invalid POST data request passed", { status: 422 });
     }
 
-    return new Response("Could not post blog at this time. Please try later", {
-      status: 500,
-    });
+    return new Response(
+      `Could not post blog at this time. Please try later: ${error}`,
+      {
+        status: 500,
+      }
+    );
   }
 };
