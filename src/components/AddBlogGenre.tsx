@@ -15,9 +15,7 @@ import {
 interface AddBlogGenreProps {}
 
 const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
-  const blogGenres = useBlogGerneStore((state) => state.genres);
-  const addblogGenres = useBlogGerneStore((state) => state.addGenre);
-  const removeblogGenres = useBlogGerneStore((state) => state.removeGenre);
+  const { genres, addGenre, removeGenre } = useBlogGerneStore();
 
   const BlogGenres = [
     Genre.ACTION,
@@ -80,8 +78,7 @@ const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
               <DropdownMenuItem key={index}>
                 <Button
                   onClick={() => {
-                    addblogGenres(genre);
-                    BlogGenres.slice(index, 1);
+                    addGenre(genre);
                   }}
                   className="w-full flex justify-between p-2">
                   {formatGenreName(genre)}
@@ -94,16 +91,16 @@ const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
 
         {/* Selected Genres Section */}
         <div className="flex items-center flex-wrap gap-2 bg-slate-800 min-h-[3rem] w-full border border-slate-400 p-2 rounded-lg">
-          {blogGenres.length === 0 ? (
+          {genres.length === 0 ? (
             <span className="select-none">No Genre Selected</span>
           ) : (
-            blogGenres.map((genre) => (
+            genres.map((genre) => (
               <div
                 key={genre}
                 className={`flex justify-between ${buttonVariants()}`}>
                 <span className="select-none">{formatGenreName(genre)}</span>
                 <Button
-                  onClick={() => removeblogGenres(genre)}
+                  onClick={() => removeGenre(genre)}
                   className="p-0 ml-3 h-fit rounded-full"
                   variant={"destructive"}>
                   <Minus />

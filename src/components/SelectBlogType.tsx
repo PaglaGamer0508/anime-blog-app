@@ -4,12 +4,11 @@ import { useBlogTypeStore } from "@/state/blogTypeStore";
 import React from "react";
 
 const SelectBlogType: React.FC = () => {
-  const selectedOption = useBlogTypeStore((state) => state.blogType);
-  const setSelectedOption = useBlogTypeStore((state) => state.setBlogType);
+  const { blogType, setBlogType } = useBlogTypeStore();
   const options: BlogType[] = ["GENERAL", "CHARACTER", "REVIEW"];
 
   const handleOptionClick = (option: BlogType) => {
-    setSelectedOption(option);
+    setBlogType(option);
   };
 
   return (
@@ -22,7 +21,7 @@ const SelectBlogType: React.FC = () => {
           <div key={option} className="w-full sm:w-auto">
             <button
               className={`${
-                selectedOption === option
+                blogType === option
                   ? "bg-slate-900 text-white" // Dark theme selected state with slate-700 background
                   : "bg-gray-800 text-gray-200" // Dark theme default state with gray-800 background
               } py-2 px-4 rounded-md w-full font-semibold active:scale-95 transition-transform duration-75`}

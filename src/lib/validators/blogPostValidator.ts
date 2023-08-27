@@ -7,11 +7,11 @@ export const BlogPostValidator = z.object({
   image: z.string(),
   title: z
     .string()
-    .min(3, { message: "Title must be at least 3 characters" })
+    .min(3, { message: "Title must be at least be 3 characters" })
     .max(128, { message: "Title cannot be longer than 128 characters" }),
-  content: z.string(),
+  content: z.string().min(30, {message: "Content must at least be 30 characters long"}),
   authorId: z.string(),
-  genres: z.array(z.nativeEnum(Genre)), // Use the nativeEnum method here
+  genres: z.array(z.nativeEnum(Genre)),
   type: z.enum(BlogType),
 });
 

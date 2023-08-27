@@ -7,16 +7,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/Accordion";
 import { toast } from "@/hooks/use-toast";
-import { BlogPostCreationRequest } from "@/lib/validators/blogPost";
+import { BlogPostCreationRequest } from "@/lib/validators/blogPostValidator";
 import { useBlogGerneStore } from "@/state/blogGenreStore";
 import { useBlogTypeStore } from "@/state/blogTypeStore";
 import { usePreviewImageStore } from "@/state/imagePreviewStore";
+import { useTitleContentStore } from "@/state/titleContentStore";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import AddBlogGenre from "./AddBlogGenre";
+import BlogGuidelinePopover from "./BlogGuidelinePopover";
 import SelectBlogType from "./SelectBlogType";
 import UploadDnD from "./UploadDnD";
 import { Button } from "./ui/Button";
@@ -26,11 +28,19 @@ interface BlogPostEditorProps {
 }
 
 const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const blogType = useBlogTypeStore((state) => state.blogType);
-  const blogGenres = useBlogGerneStore((state) => state.genres);
+  const { blogType, clearBlogType } = useBlogTypeStore();
+  const { genres, clearGenre } = useBlogGerneStore();
+  const { title, content, setTitle, setContent, clearData } =
+    useTitleContentStore();
+  const { imageUrl, removePreviewImage } = usePreviewImageStore();
+
+  //  this function is for cleaning the editor after posting a blog
+  const clearAllBlogData = () => {
+    clearData();
+    removePreviewImage();
+    clearBlogType();
+    clearGenre();
+  };
 
   const blogData: BlogPostCreationRequest = {
     authorId,
@@ -38,31 +48,20 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
     content,
     image: imageUrl || "",
     type: blogType,
-    genres: blogGenres,
+    genres: genres,
   };
 
-  const imagePreviewUrl = usePreviewImageStore((state) => state.imageUrl);
-  const removePreviewImage = usePreviewImageStore(
-    (state) => state.removePreviewImage
-  );
-
-  useEffect(() => {
-    setImageUrl(imagePreviewUrl);
-  }, [imagePreviewUrl]);
-
   const handleRemoveClick = () => {
-    if (imagePreviewUrl) {
-      removePreviewImage();
-    } else {
-      console.log("There is no imageUrl");
-    }
+    removePreviewImage();
   };
 
   const { mutate: postBlog, isLoading } = useMutation({
     mutationFn: async () => {
-      axios.post("/api/blog/create", blogData);
+      const data = await axios.post("/api/blog/create", blogData);
+      return data;
     },
-    onError: () => {
+    onError: (error) => {
+      console.log(error);
       return toast({
         title: "Error",
         description: "Error Occured Publishing Blog",
@@ -70,9 +69,10 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
       });
     },
     onSuccess: () => {
+      clearAllBlogData();
       return toast({
         title: "Success",
-        description: "Post has been Published",
+        description: "Your Blog has been Published",
       });
     },
   });
@@ -81,10 +81,14 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
     if (
       !authorId ||
       !title ||
+      title.length < 3 ||
+      title.length > 128 ||
       !content ||
+      content.length < 30 ||
       !imageUrl ||
+      imageUrl === "" ||
       !blogType ||
-      !blogGenres
+      !genres
     ) {
       return toast({
         title: "Error",
@@ -103,7 +107,7 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
           {imageUrl === null || imageUrl === "" ? (
             <UploadDnD />
           ) : (
-            <div className="flex relative w-full max-h-[25rem]">
+            <div className="flex relative w-full min-h-[5rem] sm:min-h-[10rem] max-h-[25rem]">
               <div className="h-full mx-auto">
                 <img
                   src={imageUrl}
@@ -111,32 +115,38 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
                   alt="Selected Image"
                 />
               </div>
+
               <Button
-                className="absolute m-3"
+                className="absolute m-3 py-1 px-2"
                 variant={"destructive"}
                 onClick={handleRemoveClick}>
-                <Trash2 />
+                <Trash2 className="h-5 w-5" />
               </Button>
             </div>
           )}
         </div>
 
-        {/* Type selection Section */}
+        {/* This blog options accordion */}
         <Accordion type="multiple" className="w-full bg-slate-700">
           <AccordionItem value="item-1">
             <AccordionTrigger className="mx-12 sm:mx-24 md:mx-36 outline-none">
               Options
             </AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="relative">
               <hr className="h-[1px] w-full border-none bg-slate-500" />
+              {/* This is a pop over for  */}
+              <BlogGuidelinePopover className="absolute top-2 px-3 py-1" />
+
+              {/* Type selection Section */}
               <SelectBlogType />
+
               <hr className="h-[1px] w-full border-none bg-slate-500" />
+
+              {/* Add Genres section */}
               <AddBlogGenre />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-
-        {/* Add Genres section */}
 
         {/* Title section */}
         <div className="bg-slate-700 w-full p-3">
@@ -163,7 +173,7 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
           onClick={handleSubmitClick}
           variant={"primary"}
           className="w-full">
-          <span>Blog</span>
+          <span>Post Blog</span>
         </Button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { BlogPostValidator } from "@/lib/validators/blogPost";
+import { BlogPostValidator } from "@/lib/validators/blogPostValidator";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

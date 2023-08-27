@@ -15,7 +15,7 @@ const UploadDnD = () => {
   );
 
   return (
-    <main className="flex h-full flex-col items-center justify-start">
+    <div className="flex h-full flex-col items-center justify-start">
       <UploadDropzone<OurFileRouter>
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
@@ -33,7 +33,7 @@ const UploadDnD = () => {
           });
         }}
       />
-    </main>
+    </div>
   );
 };
 

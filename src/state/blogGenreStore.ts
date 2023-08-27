@@ -38,6 +38,7 @@ interface BlogGerneStore {
   genres: Genre[];
   addGenre: (genre: Genre) => void;
   removeGenre: (genre: Genre) => void;
+  clearGenre: () => void;
 }
 
 export const useBlogGerneStore = create<BlogGerneStore>((set, get) => ({
@@ -55,4 +56,5 @@ export const useBlogGerneStore = create<BlogGerneStore>((set, get) => ({
   removeGenre: (genre: Genre) => {
     set((state) => ({ genres: state.genres.filter((g) => g !== genre) }));
   },
+  clearGenre: () => set({ genres: [] }),
 }));
