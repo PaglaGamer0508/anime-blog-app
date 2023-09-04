@@ -60,8 +60,7 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
       const data = await axios.post("/api/blog/create", blogData);
       return data;
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
       return toast({
         title: "Error",
         description: "Error Occured Publishing Blog",

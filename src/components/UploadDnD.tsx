@@ -22,7 +22,6 @@ const UploadDnD = () => {
           if (res) {
             const imageUrl = res[0].url;
             setImagePreview(imageUrl);
-            console.log(imageUrl);
           }
         }}
         onUploadError={(error: Error) => {

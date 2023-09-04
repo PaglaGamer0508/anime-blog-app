@@ -1,5 +1,5 @@
 import PostBlogEditor from "@/components/BlogPostEditor";
-import LoginToPostBlogs from "@/components/LoginToPostBlogs";
+import LoginToPostBlogs from "@/components/LoginToDoAction";
 import { getAuthSession } from "@/lib/auth";
 import React from "react";
 
@@ -13,7 +13,7 @@ const Page = async ({}) => {
         {authorId ? (
           <PostBlogEditor authorId={authorId} />
         ) : (
-          <LoginToPostBlogs />
+          <LoginToPostBlogs action="Post Blogs"/>
         )}
       </div>
     </>

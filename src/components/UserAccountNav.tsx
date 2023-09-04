@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { User } from "next-auth";
-import { signOut } from "next-auth/react";
+import type { User } from "next-auth";
 
 import {
   DropdownMenu,
@@ -14,10 +13,10 @@ import {
 import UserAvatar from "./UserAvatar";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: Pick<User, "name" | "image" | "email">;
+  user: User;
 }
 
-export function UserAccountNav({ user }: UserAccountNavProps) {
+const UserAccountNav: React.FC<UserAccountNavProps> =  ({ user }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
@@ -39,7 +38,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/">Profile</Link>
+          <Link href="/my-profile/">Profile</Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
@@ -49,18 +48,9 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         <DropdownMenuItem asChild>
           <Link href="/settings">Settings</Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onSelect={(event) => {
-            event.preventDefault();
-            signOut({
-              callbackUrl: `${window.location.origin}/`,
-            });
-          }}>
-          Sign out
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
+
+export default UserAccountNav

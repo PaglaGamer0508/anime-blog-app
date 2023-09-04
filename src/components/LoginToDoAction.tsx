@@ -2,12 +2,16 @@ import React from "react";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
 
-const LoginToPostMessage: React.FC = () => {
+interface LoginToDoActionProps {
+  action: string;
+}
+
+const LoginToDoAction: React.FC<LoginToDoActionProps> = ({ action }) => {
   return (
     <div className="rounded-md min-h-[80dvh] grid place-content-center text-white text-center shadow-md">
       <div className="mb-4">
         <LogIn className="text-4xl mx-auto mb-2" /> {/* Log in icon */}
-        <p className="text-lg font-semibold">Sign In to post blogs</p>
+        <p className="text-lg font-semibold">Sign In to {action}</p>
       </div>
       <Link
         href="/sign-in"
@@ -18,4 +22,4 @@ const LoginToPostMessage: React.FC = () => {
   );
 };
 
-export default LoginToPostMessage;
+export default LoginToDoAction;

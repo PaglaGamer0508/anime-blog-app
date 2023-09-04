@@ -37,6 +37,8 @@ export const authOptions: NextAuthOptions = {
     jwt: async ({ token, user, account }) => {
       if (user) {
         token.id = user.id;
+        token.id = user.id;
+        token.name = user.name;
       }
       if (account) {
         token.accessToken = account.access_token;
@@ -44,7 +46,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     redirect() {
-      return "/";
+      return `/`;
     },
   },
 };

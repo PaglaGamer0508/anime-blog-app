@@ -2,7 +2,7 @@ import { getAuthSession } from "@/lib/auth";
 import Link from "next/link";
 import DropDownMenuGenres from "./DropDownMenuGenres";
 import SignInNavButton from "./SignInNavButton";
-import { UserAccountNav } from "./UserAccountNav";
+import UserAccountNav from "./UserAccountNav";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -14,7 +14,7 @@ const Navbar = async () => {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-white hover:text-gray-300 font-bold text-xl">
+              className="text-white hover:text-gray-300 font-bold text-lg sm:text-xl md:text-xl">
               AnimeBlogs
             </Link>
           </div>

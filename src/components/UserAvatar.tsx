@@ -20,6 +20,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user, ...props }) => {
             <Image
               fill
               src={user.image}
+              sizes="5rem"
               alt="profile picture"
               referrerPolicy="no-referrer"
             />

@@ -1,4 +1,0 @@
-### packages: lucide-react, shadcn/ui, zod, zod-validation-error. reactQuery
-
-# TODO
-

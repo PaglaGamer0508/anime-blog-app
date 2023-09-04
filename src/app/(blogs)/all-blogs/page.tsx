@@ -1,13 +1,13 @@
 import AllBlogs from "@/components/AllBlogs";
 import React from "react";
 
-const page: React.FC = async () => {
+interface pageProps {}
+
+const page: React.FC<pageProps> = ({}) => {
   return (
-    <>
-      <main>
-        <h1>Home page</h1>
-      </main>
-    </>
+    <div>
+      <AllBlogs />
+    </div>
   );
 };
 
