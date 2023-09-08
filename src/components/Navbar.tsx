@@ -18,15 +18,14 @@ const Navbar = async () => {
               AnimeBlogs
             </Link>
           </div>
-          <div className="md:block">
-            <div className="ml-10 flex items-center space-x-4">
-              <DropDownMenuGenres />
-              {session?.user ? (
-                <UserAccountNav user={session.user} />
-              ) : (
-                <SignInNavButton />
-              )}
-            </div>
+          <div className="ml-10 flex items-center space-x-4">
+            <Link href={"/all-blogs"}>All-Blogs</Link>
+            <DropDownMenuGenres />
+            {session?.user ? (
+              <UserAccountNav user={session.user} />
+            ) : (
+              <SignInNavButton />
+            )}
           </div>
         </div>
       </div>

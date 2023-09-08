@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { BlogPostValidator } from "@/lib/validators/blogPostValidator";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -8,6 +9,8 @@ export const POST = async (req: Request) => {
     const body = await req.json();
     const { authorId, title, content, type, genres, image } =
       BlogPostValidator.parse(body);
+
+    const newGenre = JSON.stringify(genres);
 
     const userExists = await db.user.findFirst({
       where: {
@@ -26,14 +29,17 @@ export const POST = async (req: Request) => {
         content,
         image,
         type,
-        genres,
+        genres: newGenre,
       },
     });
 
+    revalidatePath('/all-blogs')
     return new Response("Posted Blog successfully", { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return new NextResponse("Invalid POST data request passed", { status: 422 });
+      return new NextResponse("Invalid POST data request passed", {
+        status: 422,
+      });
     }
 
     return new NextResponse(

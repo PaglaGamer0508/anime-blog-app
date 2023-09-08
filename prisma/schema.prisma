@@ -82,7 +82,7 @@ model Post {
   Views View[]
   Likes Like[]
 
-  genres Json
+  genres String
 
   type Type @default(GENERAL)
 }

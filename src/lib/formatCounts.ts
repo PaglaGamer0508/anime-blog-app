@@ -1,4 +1,4 @@
-export const formatViewCount = (viewCount: number): string => {
+export const formatCount = (viewCount: number): string => {
   if (viewCount >= 1000000000) {
     return viewCount >= 10000000000
       ? `${(viewCount / 1000000000).toFixed(0)}B`

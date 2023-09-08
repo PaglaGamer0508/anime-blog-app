@@ -3,4 +3,4 @@ packages: lucide-react, shadcn/ui, zod, zod-validation-error. reactQuery
 TODO
 1. Make a good looking landing home page, with a image slider
 2. Research more on SSG and ISR
-
+3. make a dynamic blog page

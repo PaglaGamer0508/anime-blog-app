@@ -1,4 +1,4 @@
-import { toast, useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { create } from "zustand";
 
 export enum Genre {
@@ -44,13 +44,20 @@ interface BlogGerneStore {
 export const useBlogGerneStore = create<BlogGerneStore>((set, get) => ({
   genres: [],
   addGenre: (genre: Genre) => {
-    if (!get().genres.includes(genre)) {
-      set((state) => ({ genres: [...state.genres, genre] }));
-    } else {
+    if (get().genres.length >= 6) {
       toast({
         title: "Alert",
-        description: "Genre Already Added",
+        description: "You cannot add more than 6 genres",
       });
+    } else {
+      if (!get().genres.includes(genre)) {
+        set((state) => ({ genres: [...state.genres, genre] }));
+      } else {
+        toast({
+          title: "Alert",
+          description: "Genre Already Added",
+        });
+      }
     }
   },
   removeGenre: (genre: Genre) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
 interface ShowBlogTypeProps {
   type: BlogType;
@@ -28,7 +28,7 @@ const ShowBlogType: React.FC<ShowBlogTypeProps> = ({ type }) => {
 
   return (
     <div
-      className={`px-2 py-1 rounded-sm border-2 text-base ${borderColor}`}
+      className={`px-2 py-1 w-fit h-fit rounded-sm border-2 text-base ${borderColor}`}
       style={{
         color: textColor,
       }}>

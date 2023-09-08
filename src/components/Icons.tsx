@@ -1,6 +1,41 @@
 import { LucideProps, User } from "lucide-react";
 
 export const Icons = {
+  liked: (props: LucideProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      height="48"
+      width="48"
+      viewBox="0 0 48 48">
+      <title>favorite</title>
+      <g className="nc-icon-wrapper">
+        <path
+          d="M43.192,6.808a13.016,13.016,0,0,0-18.385,0Q24.386,7.23,24,7.7c-.257-.311-.526-.606-.808-.888A13,13,0,0,0,4.807,25.192L23.292,43.677a1,1,0,0,0,1.414,0L43.191,25.192A13.012,13.012,0,0,0,43.192,6.808Z"
+          fill="#EF4444"></path>
+      </g>
+    </svg>
+  ),
+  like: (props: LucideProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      height="48"
+      width="48"
+      viewBox="0 0 64 64">
+      <title>favorite</title>
+      <g
+        strokeLinecap="square"
+        strokeWidth="4"
+        fill="none"
+        stroke="#ffffff"
+        strokeLinejoin="miter"
+        className="nc-icon-wrapper"
+        strokeMiterlimit="10">
+        <path d="M57.207,10.793 c-6.39-6.39-16.751-6.39-23.142,0c-0.787,0.787-1.472,1.636-2.066,2.529c-0.593-0.892-1.279-1.742-2.066-2.529 c-6.39-6.39-16.751-6.39-23.142,0c-6.391,6.39-6.391,16.751,0,23.142L32,59.142l25.207-25.207 C63.598,27.544,63.598,17.183,57.207,10.793z"></path>
+      </g>
+    </svg>
+  ),
   user: User,
   google: (props: LucideProps) => (
     <svg {...props} viewBox="0 0 24 24">

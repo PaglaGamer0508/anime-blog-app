@@ -10,11 +10,15 @@ const AllBlogs: React.FC<AllBlogsProps> = async ({}) => {
 
   return (
     <>
-      <div className={`max-w-[1400px] mx-auto py-3 ${Styles.container}`}>
-        {blogsData.map((blog) => {
-          return <ThumbnailCard blog={blog} />;
-        })}
-      </div>
+      {blogsData ? (
+        <div className={`max-w-[1400px] mx-auto py-3 ${Styles.container}`}>
+          {blogsData.map((blog) => {
+            return <ThumbnailCard blog={blog} key={blog.id} />;
+          })}
+        </div>
+      ) : (
+        <div>Cannot Load Blogs</div>
+      )}
     </>
   );
 };

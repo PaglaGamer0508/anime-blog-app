@@ -22,6 +22,7 @@ import BlogGuidelinePopover from "./BlogGuidelinePopover";
 import SelectBlogType from "./SelectBlogType";
 import UploadDnD from "./UploadDnD";
 import { Button } from "./ui/Button";
+import Image from "next/image";
 
 interface BlogPostEditorProps {
   authorId: string;
@@ -54,7 +55,7 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
   const handleRemoveClick = () => {
     removePreviewImage();
   };
-
+ 
   const { mutate: postBlog, isLoading } = useMutation({
     mutationFn: async () => {
       const data = await axios.post("/api/blog/create", blogData);
@@ -99,14 +100,14 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
   };
 
   return (
-    <div className=" w-[98%] sm:w-[90%] md:w-[70%] lg:w-[60] mx-auto my-3">
+    <div className=" w-[98%] sm:w-[90%] md:w-[80%] lg:w-[65%] mx-auto my-3">
       <div className="flex flex-col items-center w-full  border-2 border-slate-500 rounded-md my-2">
         {/* Image Section */}
         <div className="flex justify-center bg-slate-900 w-full max-h-[30rem]">
           {imageUrl === null || imageUrl === "" ? (
             <UploadDnD />
           ) : (
-            <div className="flex relative w-full min-h-[5rem] sm:min-h-[10rem] max-h-[25rem]">
+            <div className="flex relative w-full min-h-[10rem] sm:min-h-[10rem] max-h-[25rem]">
               <div className="h-full mx-auto">
                 <img
                   src={imageUrl}

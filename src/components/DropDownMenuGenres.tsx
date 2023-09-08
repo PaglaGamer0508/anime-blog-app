@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
+import Styles from "./styles/dropdown.module.scss";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/DropdownMenu";
-import Styles from "./styles/dropdown.module.scss";
 
 interface DropDownMenuGenresProps {}
 
