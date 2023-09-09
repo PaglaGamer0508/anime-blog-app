@@ -1,3 +1,4 @@
+import { getAuthSession } from "@/lib/auth";
 import { formatCount } from "@/lib/formatCounts";
 import { formatDate } from "@/lib/formatDate";
 import { getUserFollowers } from "@/lib/getFollowers";
@@ -8,10 +9,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { HTMLAttributes } from "react";
 import FollowUnfollowButton from "./FollowUnfollowButton";
-import LikeButton from "./LikeButton";
+import LikeUnlikeButton from "./LikeUnlikeButton";
 import ShowBlogType from "./ShowBlogType";
 import UserAvatar from "./UserAvatar";
-import { getAuthSession } from "@/lib/auth";
 
 interface BlogPageProps extends HTMLAttributes<HTMLDivElement> {
   blog: FullBlog;
@@ -68,7 +68,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
         </div>
 
         {/* Blog Genres */}
-        <div className="mt-4 flex flex-wrap gap-2 mb-2">
+        <div className="mt-2 flex flex-wrap gap-2 mb-2">
           {formattedGenres.map((genre, index) => (
             <div
               key={Math.random()}
@@ -129,7 +129,12 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
           {/* Like and share */}
           <div className="flex items-center mx-4">
             {/* <Icons.liked className="w-8 h-8" /> */}
-            <LikeButton likes={Likes.length} />
+            <LikeUnlikeButton
+              userId={session?.user ? session?.user?.id : ""}
+              isLiked={isLiked}
+              likes={Likes.length}
+              postId={blog.id}
+            />
           </div>
         </div>
       </header>

@@ -30,7 +30,7 @@ export const POST = async (req: Request) => {
     return new NextResponse("Successfully unfollowed user", { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return new NextResponse("Invalid Follow data request passed", {
+      return new NextResponse("Invalid Unfollow data request passed", {
         status: 422,
       });
     }

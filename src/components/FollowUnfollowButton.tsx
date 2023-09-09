@@ -4,7 +4,7 @@ import { toast } from "@/hooks/use-toast";
 import { followUserCreationRequest } from "@/lib/validators/followUserValidator";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Check, Loader2 } from "lucide-react";
+import { Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "./ui/Button";
@@ -71,6 +71,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
       {isFollowing ? (
         <Button
           isLoading={isUnfollowLoading}
+          disabled={isUnfollowLoading}
           onClick={() => unfollow()}
           className="rounded-full active:scale-90 transition-transform duration-100">
           <span>Following</span>
@@ -79,6 +80,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
       ) : (
         <Button
           isLoading={isFollowLoading}
+          disabled={isFollowLoading}
           onClick={() => follow()}
           className="rounded-full active:scale-90 transition-transform duration-100"
           variant={"primary"}>

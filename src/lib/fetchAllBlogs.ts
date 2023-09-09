@@ -14,7 +14,6 @@ export const fetchAllBlogs = async (): Promise<BlogThumbnail[]> => {
     const { blogs } = responseData;
     return blogs;
   } catch (error) {
-    console.error("Error occurred:", error);
     throw error;
   }
 };
