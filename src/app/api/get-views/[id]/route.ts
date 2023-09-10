@@ -6,38 +6,25 @@ interface BlogParams {
 }
 
 export const GET = async (req: Request, { params }: { params: BlogParams }) => {
-  const { id } = params;
-
   try {
-    const blog = await db.post.findFirst({
+    const { id } = params;
+    const ViewCounts = await db.view.count({
       where: {
-        id,
-      },
-      include: {
-        Author: true,
+        postId: id,
       },
     });
 
-    if (!blog) {
-      return NextResponse.json(
-        {
-          message: "Expected Blog Not Found",
-        },
-        { status: 206 }
-      );
-    }
-
     return NextResponse.json(
-      { message: "Blog found Successful!", blog },
+      { message: "get Like count Successful!", ViewCounts },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json({
-      message: "Error fetching blog",
+      message: "Error geting post likes",
       status: 500,
       error,
     });
   } finally {
-    await db.$disconnect();
+    db.$disconnect();
   }
 };

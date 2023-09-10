@@ -7,6 +7,7 @@ export const fetchAllBlogs = async (): Promise<BlogThumbnail[]> => {
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-store",
     });
 
     const responseData = await response.json();

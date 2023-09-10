@@ -1,15 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Icons } from "./Icons";
+import { toast } from "@/hooks/use-toast";
+import { formatCount } from "@/lib/formatCounts";
+import { likeAndViewPostCreationRequest } from "@/lib/validators/likeAndViewPostValidator";
 import { useMutation } from "@tanstack/react-query";
-import {
-  likePostCreationRequest,
-  likePostValidator,
-} from "@/lib/validators/likePostValidator";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { toast } from "@/hooks/use-toast";
+import React, { useState } from "react";
+import { Icons } from "./Icons";
 
 interface LikeUnlikeButtonProps {
   isLiked: boolean;
@@ -32,36 +30,22 @@ const LikeUnlikeButton: React.FC<LikeUnlikeButtonProps> = ({
   // Like post
   const { mutate: likePost } = useMutation({
     mutationFn: async () => {
-      const payload: likePostCreationRequest = { postId, userId };
+      const payload: likeAndViewPostCreationRequest = { postId, userId };
       await axios.post("/api/like-post", payload);
     },
-    onSuccess: () => {
+    onSettled: () => {
       router.refresh();
-    },
-    onError: () => {
-      return toast({
-        title: "Error",
-        description: "Error liking post",
-        variant: "destructive",
-      });
     },
   });
 
   // Unlike post
   const { mutate: unlikePost } = useMutation({
     mutationFn: async () => {
-      const payload: likePostCreationRequest = { postId, userId };
+      const payload: likeAndViewPostCreationRequest = { postId, userId };
       await axios.post("/api/unlike-post", payload);
     },
-    onSuccess: () => {
+    onSettled: () => {
       router.refresh();
-    },
-    onError: () => {
-      return toast({
-        title: "Error",
-        description: "Error unliking post",
-        variant: "destructive",
-      });
     },
   });
 
@@ -97,7 +81,7 @@ const LikeUnlikeButton: React.FC<LikeUnlikeButtonProps> = ({
         )}
       </div>
       <div>
-        <span>{likesCount}</span>
+        <span>{formatCount(likesCount)}</span>
       </div>
     </div>
   );

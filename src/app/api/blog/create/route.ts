@@ -33,7 +33,7 @@ export const POST = async (req: Request) => {
       },
     });
 
-    revalidatePath('/all-blogs')
+    revalidatePath("/all-blogs");
     return new Response("Posted Blog successfully", { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -48,5 +48,7 @@ export const POST = async (req: Request) => {
         status: 500,
       }
     );
+  } finally {
+    await db.$disconnect();
   }
 };

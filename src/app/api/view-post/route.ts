@@ -5,41 +5,38 @@ import { z } from "zod";
 
 export const POST = async (req: Request) => {
   const body = await req.json();
-
   try {
     const { postId, userId } = likeAndViewPostValidator.parse(body);
-    const existingLike = await db.like.findFirst({
+    const existingView = await db.view.findFirst({
       where: {
-        likerId: userId,
         postId,
+        viewerId: userId,
       },
     });
 
-    if (existingLike) {
-      return new NextResponse("User has already liked this post", {
+    if (existingView) {
+      return new NextResponse("User has already viewed this post", {
         status: 201,
       });
     }
 
-    await db.like.create({
+    await db.view.create({
       data: {
-        likerId: userId,
+        viewerId: userId,
         postId,
       },
     });
-
-    return new NextResponse("Successfully liked post", { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return new NextResponse("Invalid like data request passed", {
+      return new NextResponse("Invalid view data request passed", {
         status: 422,
       });
     }
 
-    return new NextResponse("Error liking post", {
+    return new NextResponse("Error adding views to the post", {
       status: 500,
     });
   } finally {
-    await db.$disconnect();
+    db.$disconnect();
   }
 };

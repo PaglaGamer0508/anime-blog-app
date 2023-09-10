@@ -31,8 +31,6 @@ const page: React.FC<pageProps> = async ({ params }) => {
   const { id } = params;
   const blog = await getBlog(id);
 
-  const { genres } = blog;
-
   return (
     <div className="lg:flex gap-4 max-w-[1400px] py-4 px-2 md:px-6 mx-auto">
       <BlogPage blog={blog} className="lg:w-[70%]" />

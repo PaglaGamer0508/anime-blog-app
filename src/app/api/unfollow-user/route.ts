@@ -38,5 +38,7 @@ export const POST = async (req: Request) => {
     return new NextResponse("Error deleting follow relationship", {
       status: 500,
     });
+  } finally {
+    await db.$disconnect();
   }
 };

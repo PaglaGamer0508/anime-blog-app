@@ -1,12 +1,11 @@
 import { db } from "@/lib/db";
-import { likePostValidator } from "@/lib/validators/likePostValidator";
+import { likeAndViewPostValidator } from "@/lib/validators/likeAndViewPostValidator";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
 export const POST = async (req: Request) => {
   const body = await req.json();
-  const { postId, userId } = likePostValidator.parse(body);
-
+  const { postId, userId } = likeAndViewPostValidator.parse(body);
   try {
     const likeRecordToDelete = await db.like.findFirst({
       where: {
@@ -38,5 +37,7 @@ export const POST = async (req: Request) => {
     return new NextResponse("Error unliking post", {
       status: 500,
     });
+  } finally {
+    await db.$disconnect();
   }
 };

@@ -12,6 +12,10 @@ import FollowUnfollowButton from "./FollowUnfollowButton";
 import LikeUnlikeButton from "./LikeUnlikeButton";
 import ShowBlogType from "./ShowBlogType";
 import UserAvatar from "./UserAvatar";
+import ShowBlogGenres from "./ShowBlogGenres";
+import AddView from "./AddView";
+import { getLikes } from "@/lib/getLikes";
+import { getViews } from "@/lib/getViews";
 
 interface BlogPageProps extends HTMLAttributes<HTMLDivElement> {
   blog: FullBlog;
@@ -20,8 +24,6 @@ interface BlogPageProps extends HTMLAttributes<HTMLDivElement> {
 const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
   const {
     Author,
-    Likes,
-    Views,
     image,
     title,
     content,
@@ -30,17 +32,27 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
     genres,
   } = blog;
 
+  const formattedGenres: string[] = JSON.parse(genres);
+
   const followers = await getUserFollowers(Author.id);
-  const formattedGenres: String[] = JSON.parse(genres);
 
   const isLiked = await getIsLiked(blog.id);
   const isFollowing = await getIsFollowing(Author.id);
 
+  // this is the user
   const session = await getAuthSession();
+  // likes and views freash data
+  const likeCount = await getLikes(blog.id);
+  const viewCount = await getViews(blog.id);
+
   const ownAccount = session?.user?.id === Author.id;
 
   return (
     <div className="p-10 rounded-lg shadow-lg overflow-hidden" {...props}>
+      {/* This component return nothing, it is for adding view to the post */}
+      {ownAccount ? null : (
+        <AddView postId={blog.id} userId={session?.user?.id || ""} />
+      )}
       <div className="aspect-video relative overflow-hidden rounded-md">
         {/* main image */}
         <Image
@@ -68,29 +80,11 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
         </div>
 
         {/* Blog Genres */}
-        <div className="mt-2 flex flex-wrap gap-2 mb-2">
-          {formattedGenres.map((genre, index) => (
-            <div
-              key={Math.random()}
-              className={`h-fit w-fit border rounded-md py-1 px-2
-        ${
-          [
-            "text-blue-500 border-blue-500",
-            "text-red-500 border-red-500",
-            "text-green-500 border-green-500",
-            "text-indigo-600 border-indigo-600",
-            "text-yellow-500 border-yellow-500",
-            "text-violet-600 border-violet-600",
-          ][index % 6]
-        }`}>
-              {genre}
-            </div>
-          ))}
-        </div>
+        <ShowBlogGenres genres={formattedGenres} />
 
         {/* views and date */}
         <div className="flex items-center font-medium gap-x-2 text-gray-300">
-          <p>{formatCount(Views.length)} views</p>
+          <p>{formatCount(viewCount)} views</p>
           <p>{formatDate(createdAt)}</p>
         </div>
 
@@ -119,7 +113,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
                   <FollowUnfollowButton
                     isFollowing={isFollowing}
                     followUserId={Author.id}
-                    userId={session?.user ? session?.user?.id : ""}
+                    userId={session?.user?.id || ""}
                   />
                 )}
               </div>
@@ -129,12 +123,16 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
           {/* Like and share */}
           <div className="flex items-center mx-4">
             {/* <Icons.liked className="w-8 h-8" /> */}
-            <LikeUnlikeButton
-              userId={session?.user ? session?.user?.id : ""}
-              isLiked={isLiked}
-              likes={Likes.length}
-              postId={blog.id}
-            />
+            {ownAccount ? (
+              <div>{likeCount} Likes</div>
+            ) : (
+              <LikeUnlikeButton
+                userId={session?.user?.id || ""}
+                isLiked={isLiked}
+                likes={likeCount}
+                postId={blog.id}
+              />
+            )}
           </div>
         </div>
       </header>

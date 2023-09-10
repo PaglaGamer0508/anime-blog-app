@@ -29,10 +29,10 @@ const MyProfile: React.FC<MyProfileProps> = ({ user }) => {
           </div>
         </div>
         <div>
-          <h1 className="mx-auto text-blue-700 text-2xl font-bold w-fit mt-3">All Blogs</h1>
-          <div>
-            
-          </div>
+          <h1 className="mx-auto text-blue-700 text-2xl font-bold w-fit mt-3">
+            All Blogs
+          </h1>
+          <div>id: {user.id}</div>
         </div>
       </div>
     </div>

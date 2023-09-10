@@ -21,5 +21,7 @@ export const GET = async (req: Request) => {
     return NextResponse.json({ blogs }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "Error", error }, { status: 500 });
+  } finally {
+    await db.$disconnect();
   }
 };

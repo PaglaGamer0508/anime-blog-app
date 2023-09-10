@@ -45,9 +45,9 @@ const UserAccountNav: React.FC<UserAccountNavProps> =  ({ user }) => {
           <Link href="/blog/create">Create Blog</Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem asChild>
+        {/* <DropdownMenuItem asChild>
           <Link href="/settings">Settings</Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -1,4 +1,4 @@
-import { Like, Post, User, View } from "@prisma/client";
+import { Post, User, View } from "@prisma/client";
 
 type BlogThumbnail = {
   id: string;
@@ -12,6 +12,4 @@ type BlogThumbnail = {
 
 type FullBlog = Post & {
   Author: User;
-  Views: View[];
-  Likes: Like[];
 };

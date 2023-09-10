@@ -24,5 +24,7 @@ export const GET = async (req: Request) => {
         status: 500,
       }
     );
+  } finally {
+    await db.$disconnect();
   }
 };
