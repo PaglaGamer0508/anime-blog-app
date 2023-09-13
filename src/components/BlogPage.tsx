@@ -16,21 +16,14 @@ import ShowBlogGenres from "./ShowBlogGenres";
 import AddView from "./AddView";
 import { getLikes } from "@/lib/getLikes";
 import { getViews } from "@/lib/getViews";
+import { EyeIcon } from "lucide-react";
 
 interface BlogPageProps extends HTMLAttributes<HTMLDivElement> {
   blog: FullBlog;
 }
 
 const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
-  const {
-    Author,
-    image,
-    title,
-    content,
-    type,
-    createdAt,
-    genres,
-  } = blog;
+  const { Author, image, title, content, type, createdAt, genres } = blog;
 
   const formattedGenres: string[] = JSON.parse(genres);
 
@@ -84,7 +77,10 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
 
         {/* views and date */}
         <div className="flex items-center font-medium gap-x-2 text-gray-300">
-          <p>{formatCount(viewCount)} views</p>
+          <div className="flex items-center gap-x-1"> 
+            <EyeIcon className="w-4 h-4" />
+            <p>{formatCount(viewCount)} views</p>
+          </div>
           <p>{formatDate(createdAt)}</p>
         </div>
 

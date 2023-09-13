@@ -35,7 +35,9 @@ const page: React.FC<pageProps> = async ({ params }) => {
     <div className="lg:flex gap-4 max-w-[1400px] py-4 px-2 md:px-6 mx-auto">
       <BlogPage blog={blog} className="lg:w-[70%]" />
 
-      <div className="bg-red-500 lg:w-[30%]">{/* <RecommendedBlogs /> */}</div>
+      <div className="border border-red-500 lg:w-[30%]">
+        {/* <SuggestedThumbnailCard /> */}
+      </div>
     </div>
   );
 };

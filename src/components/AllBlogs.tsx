@@ -1,23 +1,23 @@
-import { fetchAllBlogs } from "@/lib/fetchAllBlogs";
+import { BlogThumbnail } from "@/types/extended-blog";
 import React from "react";
 import ThumbnailCard from "./ThumbnailCard";
 import Styles from "./styles/all-blogs.module.scss";
 
-interface AllBlogsProps {}
+interface AllBlogsProps {
+  blogs: BlogThumbnail[];
+}
 
-const AllBlogs: React.FC<AllBlogsProps> = async ({}) => {
-  const blogsData = await fetchAllBlogs();
-
+const AllBlogs: React.FC<AllBlogsProps> = ({ blogs }) => {
   return (
     <>
-      {blogsData ? (
+      {blogs.length > 0 ? (
         <div className={`max-w-[1400px] mx-auto py-3 ${Styles.container}`}>
-          {blogsData.map((blog) => {
-            return <ThumbnailCard blog={blog} key={blog.id} />;
-          })}
+          {blogs.map((blog) => (
+            <ThumbnailCard blog={blog} key={blog.id} />
+          ))}
         </div>
       ) : (
-        <div>Cannot Load Blogs</div>
+        <div>No Blogs Found</div>
       )}
     </>
   );

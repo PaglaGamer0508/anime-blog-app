@@ -17,7 +17,7 @@ const ThumbnailCard: React.FC<ThumbnailProps> = async ({ blog }) => {
 
   return (
     <div className="mx-auto bg-slate-800 text-white rounded-lg shadow-lg w-full overflow-hidden pb-2 relative">
-      <div className="image-box w-full aspect-video relative flex justify-center overflow-hidden">
+      <div className="w-full aspect-video relative flex justify-center overflow-hidden">
         <Link href={`/blog/${id}`}>
           {/* main image */}
           <Image
@@ -38,9 +38,13 @@ const ThumbnailCard: React.FC<ThumbnailProps> = async ({ blog }) => {
         </Link>
       </div>
       <div className="px-4 py-1">
+        {/* title */}
         <Link href={`/blog/${id}`}>
-          <h1 className="text-xl font-semibold mb-1 py-1">{title}</h1>
+          <h1 className="text-xl font-semibold mb-1 py-1">
+            {title.length > 60 ? title.slice(0, 40) + "..." : title}
+          </h1>
         </Link>
+        {/* Author section */}
         <div className="w-fit">
           <Link href={`/user-profile/${Author.id}`}>
             <div className="flex items-center gap-2 pt-1">
@@ -49,6 +53,7 @@ const ThumbnailCard: React.FC<ThumbnailProps> = async ({ blog }) => {
             </div>
           </Link>
         </div>
+        {/* details section */}
         <div className="flex justify-between items-center">
           <div className="flex items-center text-xs mt-2 space-x-1 text-slate-400">
             <EyeIcon className="h-4 w-4" />
