@@ -15,7 +15,7 @@ export const timeAgo = (date: Date | string): string => {
   for (const interval in intervals) {
     const count = Math.floor(seconds / intervals[interval]);
     if (count > 0) {
-      return `${count} ${interval}${count > 1 ? "s" : ""}`;
+      return `${count} ${interval}${count > 1 ? "s" : ""} ago`;
     }
   }
 

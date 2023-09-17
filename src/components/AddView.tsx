@@ -22,7 +22,9 @@ const AddView: React.FC<AddViewProps> = ({ postId, userId }) => {
   });
 
   useEffect(() => {
-    viewPost();
+    if (userId !== "") {
+      viewPost();
+    }
   }, []);
 
   return null;

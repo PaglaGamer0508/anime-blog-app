@@ -1,3 +1,4 @@
+import { formatGenreName } from "@/lib/formatGenreName";
 import React from "react";
 
 interface ShowBlogGenresProps {
@@ -22,7 +23,7 @@ const ShowBlogGenres: React.FC<ShowBlogGenresProps> = ({ genres }) => {
             "text-violet-600 border-violet-600",
           ][index % 6]
         }`}>
-            {genre}
+            {formatGenreName(genre)}
           </div>
         ))}
       </div>

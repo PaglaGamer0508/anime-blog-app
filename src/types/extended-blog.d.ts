@@ -8,6 +8,7 @@ type BlogThumbnail = {
   type: BlogType;
   Author: User;
   Views: View[];
+  genres: string;
 };
 
 type FullBlog = Post & {

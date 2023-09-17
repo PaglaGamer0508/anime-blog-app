@@ -1,0 +1,9 @@
+/* YourComponent.css */
+@font-face {
+  font-family: "YourCustomFont";
+  src: url("../styles/font/manga_temple/mangat.ttf") format("truetype");
+}
+
+.logo_font {
+  font-family: "YourCustomFont", sans-serif;
+}

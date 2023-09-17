@@ -8,6 +8,7 @@ import { Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "./ui/Button";
+import { useCustomToasts } from "@/hooks/use-custom-toast";
 
 interface FollowUnfollowButtonProps {
   isFollowing: boolean;
@@ -21,6 +22,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
   userId,
 }) => {
   const router = useRouter();
+  const { loginToast } = useCustomToasts();
 
   //* Follow User
   const { mutate: follow, isLoading: isFollowLoading } = useMutation({
@@ -66,26 +68,43 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
     },
   });
 
+  const showLoginToast = () => {
+    return loginToast();
+  };
+
   return (
     <>
-      {isFollowing ? (
-        <Button
-          isLoading={isUnfollowLoading}
-          disabled={isUnfollowLoading}
-          onClick={() => unfollow()}
-          className="rounded-full active:scale-90 transition-transform duration-100">
-          <span>Following</span>
-          <Check className="h-4 w-4 ml-1" />
-        </Button>
+      {userId !== "" ? (
+        <div>
+          {isFollowing ? (
+            <Button
+              isLoading={isUnfollowLoading}
+              disabled={isUnfollowLoading}
+              onClick={() => unfollow()}
+              className="rounded-full active:scale-90 transition-transform duration-100">
+              <span>Following</span>
+              <Check className="h-4 w-4 ml-1" />
+            </Button>
+          ) : (
+            <Button
+              isLoading={isFollowLoading}
+              disabled={isFollowLoading}
+              onClick={() => follow()}
+              className="rounded-full active:scale-90 transition-transform duration-100"
+              variant={"primary"}>
+              Follow
+            </Button>
+          )}
+        </div>
       ) : (
-        <Button
-          isLoading={isFollowLoading}
-          disabled={isFollowLoading}
-          onClick={() => follow()}
-          className="rounded-full active:scale-90 transition-transform duration-100"
-          variant={"primary"}>
-          Follow
-        </Button>
+        <div>
+          <Button
+            onClick={showLoginToast}
+            className="rounded-full active:scale-90 transition-transform duration-100"
+            variant={"primary"}>
+            Follow
+          </Button>
+        </div>
       )}
     </>
   );

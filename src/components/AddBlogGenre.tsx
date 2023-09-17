@@ -1,6 +1,6 @@
 "use client";
 
-import { Genre, useBlogGerneStore } from "@/state/blogGenreStore";
+import { useBlogGerneStore } from "@/state/editor/blogGenreStore";
 import { Minus, PlusIcon } from "lucide-react";
 import React from "react";
 import Styles from "./styles/dropdown.module.scss";
@@ -11,53 +11,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/DropdownMenu";
+import { Genres } from "@/app/config";
+import { formatGenreName } from "@/lib/formatGenreName";
 
 interface AddBlogGenreProps {}
 
 const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
   const { genres, addGenre, removeGenre } = useBlogGerneStore();
-
-  const BlogGenres = [
-    Genre.ACTION,
-    Genre.ADVENTURE,
-    Genre.ROMANCE,
-    Genre.SHOUJO,
-    Genre.COMEDY,
-    Genre.DRAMA,
-    Genre.FANTASY,
-    Genre.HORROR,
-    Genre.MAGIC,
-    Genre.MECHA,
-    Genre.MYSTERY,
-    Genre.SCI_FI,
-    Genre.SUPERNATURAL,
-    Genre.THRILLER,
-    Genre.SPORTS,
-    Genre.PSYCHOLOGICAL,
-    Genre.HISTORICAL,
-    Genre.MILITARY,
-    Genre.MUSIC,
-    Genre.SLICE_OF_LIFE,
-    Genre.HAREM,
-    Genre.ISEKAI,
-    Genre.SEINEN,
-    Genre.SHOUNEN,
-    Genre.JOSEI,
-    Genre.ECCHI,
-    Genre.HENTAI,
-    Genre.MAGICAL_GIRL,
-    Genre.VAMPIRE,
-    Genre.ZOMBIE,
-  ];
-
-  const formatGenreName = (genreinput: string | Genre): string => {
-    const genre = genreinput.toString();
-    const hyphenated = genre.replace(/_/g, "-");
-    const formattedGenre = hyphenated
-      .toLowerCase()
-      .replace(/\b\w/g, (char: string) => char.toUpperCase());
-    return formattedGenre;
-  };
 
   return (
     <>
@@ -74,7 +34,7 @@ const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
           <DropdownMenuContent
             className={`${Styles.custom_scrollbar} bg-gray-800 max-h-[40dvh] overflow-scroll overflow-x-hidden text-white z-20`}>
             <DropdownMenuItem>All</DropdownMenuItem>
-            {BlogGenres.map((genre, index) => (
+            {Genres.map((genre, index) => (
               <DropdownMenuItem key={index}>
                 <Button
                   onClick={() => {
@@ -94,15 +54,44 @@ const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
           {genres.length === 0 ? (
             <span className="select-none">No Genre Selected</span>
           ) : (
-            genres.map((genre) => (
+            genres.map((genre, index) => (
               <div
                 key={genre}
-                className={`flex justify-between ${buttonVariants()}`}>
-                <span className="select-none">{formatGenreName(genre)}</span>
+                className={`flex justify-between border ${buttonVariants()} ${
+                  [
+                    "border-blue-500",
+                    "border-red-500",
+                    "border-green-500",
+                    "border-indigo-600",
+                    "border-yellow-500",
+                    "border-violet-600",
+                  ][index % 6]
+                }`}>
+                <span
+                  className={`select-none ${
+                    [
+                      "text-blue-500",
+                      "text-red-500",
+                      "text-green-500",
+                      "text-indigo-600",
+                      "text-yellow-500",
+                      "text-violet-600",
+                    ][index % 6]
+                  }`}>
+                  {formatGenreName(genre)}
+                </span>
                 <Button
                   onClick={() => removeGenre(genre)}
-                  className="p-0 ml-3 h-fit rounded-full"
-                  variant={"destructive"}>
+                  className={`p-0 ml-3 h-fit rounded-full ${
+                    [
+                      "bg-blue-500 hover:bg-blue-600",
+                      "bg-red-500 hover:bg-red-600",
+                      "bg-green-500 hover:bg-green-600",
+                      "bg-indigo-600 hover:bg-indigo-600",
+                      "bg-yellow-500 hover:bg-yellow-600",
+                      "bg-violet-600 hover:bg-violet-600",
+                    ][index % 6]
+                  }`}>
                   <Minus />
                 </Button>
               </div>

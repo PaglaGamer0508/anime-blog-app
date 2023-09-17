@@ -3,10 +3,10 @@ import React from "react";
 import Styles from "./all-blogs.module.scss";
 
 const loading: React.FC = ({}) => {
-  const numberOfSkeletons = 6;
+  const numberOfSkeletons = 8;
 
   return (
-    <div className={`max-w-[1400px] mx-auto py-3 ${Styles.container}`}>
+    <div className={`max-w-[1400px] mx-auto ${Styles.container}`}>
       {Array.from({ length: numberOfSkeletons }).map((_, index) => (
         <LoadingSkeletonThumbnail key={index} />
       ))}

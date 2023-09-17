@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/Accordion";
 import { toast } from "@/hooks/use-toast";
 import { BlogPostCreationRequest } from "@/lib/validators/blogPostValidator";
-import { useBlogGerneStore } from "@/state/blogGenreStore";
-import { useBlogTypeStore } from "@/state/blogTypeStore";
-import { usePreviewImageStore } from "@/state/imagePreviewStore";
-import { useTitleContentStore } from "@/state/titleContentStore";
+import { useBlogGerneStore } from "@/state/editor/blogGenreStore";
+import { useBlogTypeStore } from "@/state/editor/blogTypeStore";
+import { usePreviewImageStore } from "@/state/editor/imagePreviewStore";
+import { useTitleContentStore } from "@/state/editor/titleContentStore";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
@@ -55,7 +55,7 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
   const handleRemoveClick = () => {
     removePreviewImage();
   };
- 
+
   const { mutate: postBlog, isLoading } = useMutation({
     mutationFn: async () => {
       const data = await axios.post("/api/blog/create", blogData);
@@ -103,21 +103,31 @@ const BlogPostEditor: React.FC<BlogPostEditorProps> = ({ authorId }) => {
     <div className=" w-[98%] sm:w-[90%] md:w-[80%] lg:w-[65%] mx-auto my-3">
       <div className="flex flex-col items-center w-full  border-2 border-slate-500 rounded-md my-2">
         {/* Image Section */}
-        <div className="flex justify-center bg-slate-900 w-full max-h-[30rem]">
+        <div className="flex justify-center bg-slate-900 w-full max-h-[25rem]">
           {imageUrl === null || imageUrl === "" ? (
             <UploadDnD />
           ) : (
-            <div className="flex relative w-full min-h-[10rem] sm:min-h-[10rem] max-h-[25rem]">
-              <div className="h-full mx-auto">
-                <img
+            <div className="flex relative w-full aspect-video">
+              <div className="relative w-full overflow-hidden">
+                <Image
                   src={imageUrl}
-                  className="max-h-full w-auto overflow-hidden"
+                  height={400}
+                  width={1000}
+                  className="max-h-full relative z-20 w-auto mx-auto"
+                  alt="Selected Image"
+                />
+
+                <Image
+                  src={imageUrl}
+                  height={40}
+                  width={100}
+                  className="h-full w-full absolute inset-0 z-10 object-cover filter blur-md"
                   alt="Selected Image"
                 />
               </div>
 
               <Button
-                className="absolute m-3 py-1 px-2"
+                className="absolute z-30 m-3 py-1 px-2"
                 variant={"destructive"}
                 onClick={handleRemoveClick}>
                 <Trash2 className="h-5 w-5" />

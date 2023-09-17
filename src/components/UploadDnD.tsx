@@ -6,7 +6,7 @@ import "@uploadthing/react/styles.css";
 import { UploadDropzone } from "@uploadthing/react";
 
 import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { usePreviewImageStore } from "@/state/imagePreviewStore";
+import { usePreviewImageStore } from "@/state/editor/imagePreviewStore";
 import { toast } from "@/hooks/use-toast";
 
 const UploadDnD = () => {

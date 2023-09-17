@@ -1,11 +1,12 @@
-import AllBlogs from "@/components/AllBlogs";
 import React from "react";
 
 const page: React.FC = async () => {
   return (
     <>
       <main>
-        <h1>Home page</h1>
+        <span className="text-4xl font-bold bg-gradient-to-r from-orange-700 via-blue-500 to-green-400 text-transparent bg-clip-text animate-gradient">
+          Home Page
+        </span>
       </main>
     </>
   );

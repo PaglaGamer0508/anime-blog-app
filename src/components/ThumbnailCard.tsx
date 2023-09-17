@@ -25,7 +25,7 @@ const ThumbnailCard: React.FC<ThumbnailProps> = async ({ blog }) => {
             alt={title}
             width={600}
             height={250}
-            className="h-full relative w-auto z-20 object-cover"
+            className="h-full relative w-auto z-20 object-cover mx-auto"
           />
           {/* background blur image */}
           <Image
@@ -61,7 +61,7 @@ const ThumbnailCard: React.FC<ThumbnailProps> = async ({ blog }) => {
               {formatCount(Views.length)} views
             </span>
             <span className="flex items-center">
-              • {timeAgo(createdAt)} ago
+              • {timeAgo(createdAt)}
             </span>
           </div>
           <div>

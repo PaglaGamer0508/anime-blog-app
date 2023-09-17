@@ -8,6 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Icons } from "./Icons";
+import { useCustomToasts } from "@/hooks/use-custom-toast";
 
 interface LikeUnlikeButtonProps {
   isLiked: boolean;
@@ -26,6 +27,7 @@ const LikeUnlikeButton: React.FC<LikeUnlikeButtonProps> = ({
 
   const [liked, setLiked] = useState(isLiked);
   const [likesCount, setLikesCount] = useState(likes);
+  const { loginToast } = useCustomToasts();
 
   // Like post
   const { mutate: likePost } = useMutation({
@@ -61,25 +63,37 @@ const LikeUnlikeButton: React.FC<LikeUnlikeButtonProps> = ({
     unlikePost();
   };
 
+  const showLoginToast = () => {
+    return loginToast();
+  };
+
   return (
     <div className="flex items-center gap-2 text-xl rounded-full py-1 px-2">
-      <div className="flex items-center">
-        {liked ? (
-          // unlike button
-          <button
-            onClick={handleUnlikeClick}
-            className="active:scale-125 transition-transform duration-100 ease-in outline-none">
-            <Icons.liked className="w-6 h-6" />
-          </button>
-        ) : (
-          // like button
-          <button
-            onClick={handleLikeClick}
-            className="active:scale-75 transition-transform duration-100 ease-out outline-none">
-            <Icons.like className="w-6 h-6" />
-          </button>
-        )}
-      </div>
+      {userId !== "" ? (
+        <div className="flex items-center">
+          {liked ? (
+            // unlike button
+            <button
+              onClick={handleUnlikeClick}
+              className="active:scale-125 transition-transform duration-100 ease-in outline-none">
+              <Icons.liked className="w-6 h-6" />
+            </button>
+          ) : (
+            // like button
+            <button
+              onClick={handleLikeClick}
+              className="active:scale-75 transition-transform duration-100 ease-out outline-none">
+              <Icons.like className="w-6 h-6" />
+            </button>
+          )}
+        </div>
+      ) : (
+        <button
+          onClick={showLoginToast}
+          className="active:scale-75 transition-transform duration-100 ease-out outline-none">
+          <Icons.like className="w-6 h-6" />
+        </button>
+      )}
       <div>
         <span>{formatCount(likesCount)}</span>
       </div>

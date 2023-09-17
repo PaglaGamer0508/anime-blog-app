@@ -77,7 +77,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
 
         {/* views and date */}
         <div className="flex items-center font-medium gap-x-2 text-gray-300">
-          <div className="flex items-center gap-x-1"> 
+          <div className="flex items-center gap-x-1">
             <EyeIcon className="w-4 h-4" />
             <p>{formatCount(viewCount)} views</p>
           </div>

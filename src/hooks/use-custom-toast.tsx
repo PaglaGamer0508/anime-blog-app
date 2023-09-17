@@ -6,14 +6,14 @@ export const useCustomToasts = () => {
   const loginToast = () => {
     const { dismiss } = toast({
       title: "Login required.",
-      description: "You need to be logged in to do that.",
+      description: "You need to be logged in to do this action.",
       variant: "destructive",
       action: (
         <Link
           href="/sign-in"
           onClick={() => dismiss()}
-          className={buttonVariants({ variant: "outline" })}>
-          Log In
+          className={`${buttonVariants({ variant: "outline" })} text-black`}>
+          LogIn
         </Link>
       ),
     });
