@@ -14,3 +14,12 @@ type BlogThumbnail = {
 type FullBlog = Post & {
   Author: User;
 };
+
+type suggestedBlog = {
+  id: string;
+  title: string;
+  image: string;
+  Views: View[];
+  createdAt: Date;
+  Author: User;
+};

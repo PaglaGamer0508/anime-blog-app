@@ -1,8 +1,10 @@
+import { GenreEnum } from "@/app/config";
+import { addEmojiToGenre } from "@/lib/addEmojiToGenre";
 import { formatGenreName } from "@/lib/formatGenreName";
 import React from "react";
 
 interface ShowBlogGenresProps {
-  genres: string[];
+  genres: GenreEnum[];
 }
 
 const ShowBlogGenres: React.FC<ShowBlogGenresProps> = ({ genres }) => {
@@ -23,7 +25,7 @@ const ShowBlogGenres: React.FC<ShowBlogGenresProps> = ({ genres }) => {
             "text-violet-600 border-violet-600",
           ][index % 6]
         }`}>
-            {formatGenreName(genre)}
+            {formatGenreName(addEmojiToGenre(genre))}
           </div>
         ))}
       </div>

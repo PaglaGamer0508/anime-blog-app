@@ -17,6 +17,7 @@ import AddView from "./AddView";
 import { getLikes } from "@/lib/getLikes";
 import { getViews } from "@/lib/getViews";
 import { EyeIcon } from "lucide-react";
+import { GenreEnum } from "@/app/config";
 
 interface BlogPageProps extends HTMLAttributes<HTMLDivElement> {
   blog: FullBlog;
@@ -25,7 +26,7 @@ interface BlogPageProps extends HTMLAttributes<HTMLDivElement> {
 const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
   const { Author, image, title, content, type, createdAt, genres } = blog;
 
-  const formattedGenres: string[] = JSON.parse(genres);
+  const formattedGenres: GenreEnum[] = JSON.parse(genres);
 
   const followers = await getUserFollowers(Author.id);
 
@@ -41,7 +42,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
   const ownAccount = session?.user?.id === Author.id;
 
   return (
-    <div className="p-10 rounded-lg shadow-lg overflow-hidden" {...props}>
+    <div className="rounded-lg shadow-lg overflow-hidden" {...props}>
       {/* This component return nothing, it is for adding view to the post */}
       {ownAccount ? null : (
         <AddView postId={blog.id} userId={session?.user?.id || ""} />
@@ -65,7 +66,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
         />
       </div>
       <header>
-        <div className="flex justify-between items-center gap-2 pt-2">
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-x-2 py-2">
           <h1 className="text-2xl sm:text-3xl md:text-4xl text-blue-600 font-semibold mb-2">
             {title}
           </h1>
@@ -120,7 +121,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ blog, ...props }) => {
           <div className="flex items-center mx-4">
             {/* <Icons.liked className="w-8 h-8" /> */}
             {ownAccount ? (
-              <div>{likeCount} Likes</div>
+              <div>{likeCount && "Loading"} Likes</div>
             ) : (
               <LikeUnlikeButton
                 userId={session?.user?.id || ""}

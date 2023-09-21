@@ -13,6 +13,7 @@ import {
 } from "./ui/DropdownMenu";
 import { Genres } from "@/app/config";
 import { formatGenreName } from "@/lib/formatGenreName";
+import { addEmojiToGenre } from "@/lib/addEmojiToGenre";
 
 interface AddBlogGenreProps {}
 
@@ -41,7 +42,7 @@ const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
                     addGenre(genre);
                   }}
                   className="w-full flex justify-between p-2">
-                  {formatGenreName(genre)}
+                  {formatGenreName(addEmojiToGenre(genre))}
                   <PlusIcon />
                 </Button>
               </DropdownMenuItem>
@@ -78,7 +79,7 @@ const AddBlogGenre: React.FC<AddBlogGenreProps> = ({}) => {
                       "text-violet-600",
                     ][index % 6]
                   }`}>
-                  {formatGenreName(genre)}
+                  {formatGenreName(addEmojiToGenre(genre))}
                 </span>
                 <Button
                   onClick={() => removeGenre(genre)}

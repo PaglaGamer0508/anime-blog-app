@@ -1,13 +1,13 @@
-import { removeEmojisFromGenre } from "@/lib/removeEmojiFromGenre";
+import { GenreEnum } from "@/app/config";
 import { create } from "zustand";
 interface filterStates {
-  blogType: FilterBlogType | null;
-  blogGenre: string | null;
+  blogType: FilterBlogType;
+  blogGenre: GenreEnum | "ALL";
 }
 
 interface filterActions {
   setType: (type: FilterBlogType) => void;
-  setGenre: (genre: string) => void;
+  setGenre: (genre: GenreEnum | "ALL") => void;
 }
 
 export const useBlogFilterStore = create<filterStates & filterActions>(
@@ -16,11 +16,9 @@ export const useBlogFilterStore = create<filterStates & filterActions>(
     blogGenre: "ALL",
     setType: (type) => {
       set({ blogType: type });
-      console.log(type);
     },
     setGenre: (genre) => {
-      set({ blogGenre: removeEmojisFromGenre(genre) });
-      console.log(genre);
+      set({ blogGenre: genre });
     },
   })
 );

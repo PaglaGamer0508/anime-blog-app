@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { suggestedBlog } from "@/types/extended-blog";
 import { NextResponse } from "next/server";
 
 // Function to shuffle an array randomly
@@ -12,9 +13,25 @@ const shuffleArray = (array: Array<any>) => {
 
 export const GET = async (req: Request) => {
   try {
-    const allBlogs = await db.post.findMany();
+    const allBlogs = await db.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        image: true,
+        Views: true,
+        createdAt: true,
+        Author: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      take: 30,
+    });
+
     const shuffledBlogs = shuffleArray(allBlogs);
-    const suggestedBlogs = shuffledBlogs.slice(0, 10);
+    const suggestedBlogs: suggestedBlog[] = shuffledBlogs.slice(0, 15);
 
     return NextResponse.json({ blogs: suggestedBlogs }, { status: 200 });
   } catch (error) {

@@ -1,10 +1,13 @@
-import { redirect, useRouter } from "next/navigation";
+import AllBlogsContainer from "@/components/AllBlogsContainer";
+import FilterSection from "@/components/FilterSection";
 import React from "react";
 
-const page: React.FC = ({}) => {
-  redirect("/all-blogs/ALL/ALL");
-
-  return null;
+const page: React.FC = () => {
+  return (
+    <>
+      <AllBlogsContainer />
+    </>
+  );
 };
 
 export default page;

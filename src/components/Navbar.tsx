@@ -18,19 +18,21 @@ const Navbar = async () => {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className={`${Styles.logo_font} flex items-center gap-x-1 text-white hover:text-gray-300 font-bold text-lg sm:text-xl md:text-xl`}>
+              className={`${Styles.logo_font} flex items-center gap-x-1 text-white hover:text-gray-300 font-bold`}>
               <Image
                 alt="logo"
                 width={100}
                 height={100}
                 src={Logo}
-                className="w-14 h-1w-14"
+                className="w-10 md:w-14 h-10 md:h-14"
               />
-              <span>Anime Whispers</span>
+              <h1 className="text-base sm:text-lg md:text-xl">
+                Anime Whispers
+              </h1>
             </Link>
           </div>
           <div className="ml-10 flex items-center space-x-4">
-            <Link href={"/all-blogs/ALL/ALL"}>All-Blogs</Link>
+            <Link href={"/all-blogs"}>All Blogs</Link>
             <DropDownMenuGenres />
             {session?.user ? (
               <UserAccountNav user={session.user} />
