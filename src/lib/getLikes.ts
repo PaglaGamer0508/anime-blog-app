@@ -14,6 +14,7 @@ export const getLikes = async (postId: string): Promise<number> => {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || "Cannot get Likes");
+      return 0;
     }
 
     const responseData = await response.json();

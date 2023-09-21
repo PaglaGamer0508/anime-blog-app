@@ -49,7 +49,7 @@ const ThumbnailCard: React.FC<ThumbnailProps> = async ({ blog }) => {
           <Link href={`/user-profile/${Author.id}`}>
             <div className="flex items-center gap-2 pt-1">
               <UserAvatar user={Author} className="w-6 h-6" />
-              <p className="text-base">{Author.name}</p>
+              <p className="text-base text-slate-300 hover:text-slate-100 transition-colors duration-75">{Author.name}</p>
             </div>
           </Link>
         </div>
@@ -60,9 +60,7 @@ const ThumbnailCard: React.FC<ThumbnailProps> = async ({ blog }) => {
             <span className="flex items-center">
               {formatCount(Views.length)} views
             </span>
-            <span className="flex items-center">
-              • {timeAgo(createdAt)}
-            </span>
+            <span className="flex items-center">• {timeAgo(createdAt)}</span>
           </div>
           <div>
             <ShowBlogType type={type} />

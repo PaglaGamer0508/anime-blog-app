@@ -1,6 +1,8 @@
 import BlogPage from "@/components/BlogPage";
+import SuggestedBlogSection from "@/components/SuggestedBlogSection";
 import { getBlog } from "@/lib/getBlog";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import React from "react";
 
 interface pageProps {
@@ -16,6 +18,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = params;
   const blog = await getBlog(id);
+  if (!blog) {
+    return {
+      title: "Not Found Page",
+    };
+  }
   const { title, content, image } = blog;
 
   return {
@@ -30,13 +37,22 @@ export async function generateMetadata({
 const page: React.FC<pageProps> = async ({ params }) => {
   const { id } = params;
   const blog = await getBlog(id);
+  if (!blog) {
+    return notFound();
+  }
 
   return (
     <div className="lg:flex gap-4 max-w-[1400px] py-4 px-2 md:px-6 mx-auto">
       <BlogPage blog={blog} className="lg:w-[70%]" />
 
-      <div className="border border-red-500 lg:w-[30%]">
-        {/* <SuggestedThumbnailCard /> */}
+      <div className="lg:w-[30%]">
+        <div className="mb-3">
+          <h1 className="text-slate-300 text-center text-lg font-semibold my-1">
+            Suggested Blogs
+          </h1>
+          <hr className="bg-slate-400 h-[2px] border-none" />
+        </div>
+        <SuggestedBlogSection />
       </div>
     </div>
   );

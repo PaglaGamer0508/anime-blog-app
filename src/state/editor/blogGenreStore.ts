@@ -1,16 +1,17 @@
+import { GenreEnum } from "@/app/config";
 import { toast } from "@/hooks/use-toast";
 import { create } from "zustand";
 
 interface BlogGerneStore {
-  genres: string[];
-  addGenre: (genre: string) => void;
+  genres: GenreEnum[];
+  addGenre: (genre: GenreEnum) => void;
   removeGenre: (genre: string) => void;
   clearGenre: () => void;
 }
 
 export const useBlogGerneStore = create<BlogGerneStore>((set, get) => ({
   genres: [],
-  addGenre: (genre: string) => {
+  addGenre: (genre: GenreEnum) => {
     if (get().genres.length >= 6) {
       toast({
         title: "Alert",

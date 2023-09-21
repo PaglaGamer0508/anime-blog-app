@@ -16,6 +16,26 @@ export const Icons = {
       </g>
     </svg>
   ),
+  likeLoading: (props: LucideProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      height="48"
+      width="48"
+      viewBox="0 0 64 64">
+      <title>favorite</title>
+      <g
+        strokeLinecap="square"
+        strokeWidth="4"
+        fill="#546e7a"
+        stroke="#546e7a"
+        strokeLinejoin="miter"
+        className="nc-icon-wrapper"
+        strokeMiterlimit="10">
+        <path d="M57.207,10.793 c-6.39-6.39-16.751-6.39-23.142,0c-0.787,0.787-1.472,1.636-2.066,2.529c-0.593-0.892-1.279-1.742-2.066-2.529 c-6.39-6.39-16.751-6.39-23.142,0c-6.391,6.39-6.391,16.751,0,23.142L32,59.142l25.207-25.207 C63.598,27.544,63.598,17.183,57.207,10.793z"></path>
+      </g>
+    </svg>
+  ),
   like: (props: LucideProps) => (
     <svg
       {...props}

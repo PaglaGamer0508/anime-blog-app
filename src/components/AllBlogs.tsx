@@ -2,7 +2,6 @@ import { BlogThumbnail } from "@/types/extended-blog";
 import React from "react";
 import ThumbnailCard from "./ThumbnailCard";
 import Styles from "./styles/all-blogs.module.scss";
-import NoBlogsFound from "./NoBlogsFound";
 
 interface AllBlogsProps {
   blogs: BlogThumbnail[];
@@ -18,7 +17,7 @@ const AllBlogs: React.FC<AllBlogsProps> = ({ blogs }) => {
           ))}
         </div>
       ) : (
-        <NoBlogsFound />
+        <h1>No Available Blogs</h1>
       )}
     </>
   );

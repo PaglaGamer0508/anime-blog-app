@@ -7,7 +7,6 @@ interface SelectBlogTypeFilterProps {}
 
 const SelectBlogTypeFilter: React.FC<SelectBlogTypeFilterProps> = ({}) => {
   const { blogType, setType } = useBlogFilterStore();
-  console.log(blogType);
   const options: FilterBlogType[] = ["ALL", "GENERAL", "CHARACTER", "REVIEW"];
 
   const handleOptionClick = (option: FilterBlogType) => {

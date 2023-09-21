@@ -1,17 +1,11 @@
-'use client'
+"use client";
 
-import React from 'react';
+import React from "react";
 
-interface SearchBoxProps {
-  
-};
+interface SearchBoxProps {}
 
 const SearchBox: React.FC<SearchBoxProps> = ({}) => {
-  return (
-    <div>
-      SearchBox
-    </div>
-  );
+  return <div>SearchBox</div>;
 };
 
 export default SearchBox;

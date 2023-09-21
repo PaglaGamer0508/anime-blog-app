@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Check } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/Button";
 import { useCustomToasts } from "@/hooks/use-custom-toast";
 
@@ -23,6 +23,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
 }) => {
   const router = useRouter();
   const { loginToast } = useCustomToasts();
+  const [following, setFollowing] = useState(isFollowing);
 
   //* Follow User
   const { mutate: follow, isLoading: isFollowLoading } = useMutation({
@@ -35,6 +36,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
       await axios.post("/api/follow-user", payload);
     },
     onSuccess: () => {
+      setFollowing(true);
       router.refresh();
     },
     onError: () => {
@@ -57,6 +59,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
       await axios.post("/api/unfollow-user", payload);
     },
     onSuccess: () => {
+      setFollowing(false);
       router.refresh();
     },
     onError: () => {
@@ -76,7 +79,7 @@ const FollowUnfollowButton: React.FC<FollowUnfollowButtonProps> = ({
     <>
       {userId !== "" ? (
         <div>
-          {isFollowing ? (
+          {following ? (
             <Button
               isLoading={isUnfollowLoading}
               disabled={isUnfollowLoading}
