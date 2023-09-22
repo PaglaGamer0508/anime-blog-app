@@ -18,3 +18,5 @@ const loading: React.FC = () => {
     </div>
   );
 };
+
+export default loading;
