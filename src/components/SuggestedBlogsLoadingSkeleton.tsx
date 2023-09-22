@@ -7,7 +7,7 @@ const SuggestedBlogsLoadingSkeleton: React.FC = () => {
         return (
           <div
             key={index}
-            className="flex gap-x-2 rounded-md overflow-hidden p-1 active:bg-gray-400/40 transition-colors duration-100 ease-in">
+            className="flex gap-x-2 rounded-md overflow-hidden p-1 transition-colors duration-100 ease-in">
             <div className="bg-gradient-to-r from-slate-700 to-slate-500 w-48 h-fit relative aspect-video overflow-hidden rounded"></div>
             <div className="flex flex-col gap-y-[5px] w-[60%]">
               {/* title */}
