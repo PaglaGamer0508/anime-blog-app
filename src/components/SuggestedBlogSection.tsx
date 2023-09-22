@@ -28,8 +28,8 @@ const SuggestedBlogSection: React.FC<SuggestedBlogSectionProps> = ({}) => {
         setSuggestedBlogs(blogs as suggestedBlog[]);
         setIsLoading(false);
       } catch (error) {
+        console.error("Error fetching data:", error);
         setIsLoading(false);
-        setIsError(true);
       }
     };
 
@@ -46,11 +46,12 @@ const SuggestedBlogSection: React.FC<SuggestedBlogSectionProps> = ({}) => {
 
   if (suggestedBlogs.length === 0) {
     return <h1>No Blogs to show</h1>;
+    return <h1>Loading...</h1>;
   }
 
   return (
     <div className="space-y-2">
-      {suggestedBlogs.map((blog) => {
+      {suggestedBlogs?.map((blog) => {
         if (blog.id == currentBlogPost) {
           return null;
         }
